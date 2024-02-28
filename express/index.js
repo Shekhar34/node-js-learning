@@ -2,29 +2,25 @@ const express=require('express');
 var path = require('path');
 const app=express();
 
-const port=80;
+const port=5000;
 
-//serving static files
+//serving static files express specific files
 app.use('/static', express.static('static'));
 
 
-//set template engine pug
+//set template engine pug pecific files
 app.set('view engine', 'pug')
 
 //set view directory
 app.set('views',path.join(__dirname, 'views'));
 
-app.get("/demo", (req, res) => {
-    res.status(200).render('demo', { title: 'Hey', message: 'mi shekhar gite' })
-  });
+//endpoints
 
-app.get("/",(req,res)=>{
-    res.status(200).send("this is my first express app");
-});
+app.get('/',(req,res)=>{
+    const param={'title':'pug is best game','content':'this is baby'}
+       res.status(200).render('index.pug',param);
+})
 
-app.get("/about",(req,res)=>{
-    res.send("this is about page");
-});
 
 app.listen(port,()=>{
     console.log(`app listening on port ${port}`)
